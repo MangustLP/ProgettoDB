@@ -1,0 +1,58 @@
++user-profiles
+    user_id 			character(22)			PRIMARY KEY
+    name 				character(25)
+    review_count 		smallint
+    average_stars		real
+    registered_on		character(7)
+    fans_count			integer
+    elite_years_count	smallint
+
++user-friends
+	user_id				character(22)			PRIMARY KEY
+	user_friend			character(22)			PRIMARY KEY
+
++user-compliments
+	user_id 			character(22)			PRIMARY KEY
+	compliment_type		character(10)			PRIMARY KEY
+	num_compliment		integer
+
++user-votes
+	user_id 			character(22)			PRIMARY KEY
+	vote_type			character(10)			PRIMARY KEY
+	count 				integer
+
++review-votes (da testare PRIMARY KEY)
+	business_id			character(22)			PRIMARY KEY
+	user_id 			character(22)			PRIMARY KEY
+	stars 				smallint
+	text_id				integer					PRIMARY KEY
+	date				date
+	vote_type			character(10)			PRIMARY KEY
+	count 				integer
+
++reviews
+	id 					integer(auto increment)	PRIMARY KEY
+	text 				text
+
++business-openhours
+	business_id			character(22)			PRIMARY KEY
+	name				character(60)
+	open 				boolean
+	day					character(9)			PRIMARY KEY
+	opens 				time without time zone
+	closes				time without time zone
+
++business-categories
+	business_id 		character(22)			PRIMARY KEY
+	stars 				real
+	review_count		integer
+	category			character(40)			PRIMARY KEY
+
++business-position
+	business_id 		character(22)			PRIMARY KEY
+	full_address		character(150)
+	city 				character(20)
+	state 				character(3)
+	latitude			double precision
+	longitude 			double precision
+	neighborhood		character(30)			PRIMARY KEY
