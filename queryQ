@@ -1,0 +1,36 @@
+QUERIES:
+-------------
+
+
+query_00:
+**Sanity Check**: Ricostruire i file `.csv` utilizzati in input ordinandoli su `business_id`, `user_id` o entrambi ( a seconda dei campi contenuti), salvare i file nella cartella `/tmp/output`.
+
+
+query_02:
+**Role Models:**  Per ogni esercizio commerciale trovare attività con almeno una categoria in comune ma situate in città diverse [`city`], con maggior numero di review [`review_count`] e con voto medio [`stars`] superiore. Ignorare gli esercizi commerciali di cui non si conosce la categoria.
+Schema risultato:
+`business_id` | `num review` | `stars` | `city` | `business_id role model` | `num review role model` | `stars role model` | `city role model`
+
+
+query_08:
+**The Relocation:**  Per ogni categoria trovare le città in cui sono presenti meno di 5 attività con quella categoria (non contando le attività che hanno cessato [`open` = False]).
+Schema risultato:
+`city` | `category `
+
+
+query_10:
+ **Picky Reviewers:** restituire la lista di tutti i *picky reviewers*. Un utente si definisce *picky reviewer* se ha scritto almeno 10 recensioni e se in almeno il 75% delle sue recensioni ha dato un voto più basso della media (attributo [`stars`] in `business-categories.csv`) per lo stesso esercizio. Ignorare le recensioni per attività per cui non si conosca il voto medio.
+Schema risultato:
+`user_id` | `num review user` | `num review below average`
+
+
+
+query_16:
+ **Follower**: Trovare gli utenti che hanno scritto almeno il 75% delle review per delle attività tra le 10% più recensite. [`review_count`].
+Schema risultato:
+`user_id`
+
+query_18:
+ **Local Friend Finder**: Per ogni utente trovare utenti che non sono amici, ma che hanno scritto recensioni per attività nella stessa città.
+Schema risultato:
+`user_id` | `suggested user_id`
