@@ -129,8 +129,9 @@ WITH DELIMITER ','
 CSV HEADER;
 
 INSERT INTO "Progetto"."business-position"
-SELECT business_id, full_address, city, state, latitude, longitude, neighborhood
-	  FROM "Progetto"."business-openhours-tmp" NATURAL JOIN "Progetto"."business-neighborhoods-tmp";
+SELECT "Progetto"."business-openhours-tmp".business_id, full_address, "Progetto"."business-openhours-tmp".city, "Progetto"."business-openhours-tmp".state, latitude, longitude, neighborhood
+	  FROM "Progetto"."business-openhours-tmp" INNER JOIN "Progetto"."business-neighborhoods-tmp" ON ("Progetto"."business-openhours-tmp".business_id = "Progetto"."business-neighborhoods-tmp".business_id)
+	  GROUP BY "Progetto"."business-openhours-tmp".business_id, full_address, "Progetto"."business-openhours-tmp".city, "Progetto"."business-openhours-tmp".state, latitude, longitude, neighborhood;
 
 INSERT INTO "Progetto"."business-openhours"
 SELECT business_id, name, open, day, opens, closes
@@ -142,7 +143,7 @@ SELECT business_id, stars, review_count, category
 
 INSERT INTO "Progetto"."user-friends"
 SELECT user_id, friend_id
-	  FROM "Progetto"."user-friends";
+	  FROM "Progetto"."user-friends-tmp";
 
 INSERT INTO "Progetto"."user-compliments"
 SELECT user_id, compliment_type, num_compliments_of_this_type
