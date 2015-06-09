@@ -1,4 +1,4 @@
-CREATE SCHEMA "Progetto"
+﻿CREATE SCHEMA "Progetto"
 
 CREATE TABLE "Progetto"."user-pofiles"
 (
@@ -43,8 +43,7 @@ CREATE TABLE "Progetto"."review-votes"
 	text_id integer,
 	date date,
 	vote_type character(10),
-	count integer,
-	PRIMARY KEY(business_id, user_id, text_id, vote_type)
+	count integer
 )
 
 CREATE TABLE "Progetto"."reviews"

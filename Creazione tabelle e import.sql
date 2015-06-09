@@ -1,4 +1,4 @@
-CREATE TABLE "Progetto"."business-categories-tmp"
+﻿CREATE TABLE "Progetto"."business-categories-tmp"
 (
 	record_type character(8),
 	business_id character(22),
@@ -7,7 +7,7 @@ CREATE TABLE "Progetto"."business-categories-tmp"
 	city character(20),	
 	state character(3),
 	stars real,
-	reiew_count integer,
+	review_count integer,
 	open boolean,
 	category character(50)
 );
@@ -128,47 +128,48 @@ FROM '/tmp/dati/user-compliments.csv'
 WITH DELIMITER ','
 CSV HEADER;
 
-COPY "Progetto"."business-position"
-FROM (SELECT business_id, full_address, city, state, latitude, longitude, neighborhood
-	  FROM "business-openhours-tmp" NATURAL JOIN "business-neighborhoods-tmp");
+INSERT INTO "Progetto"."business-position"
+SELECT business_id, full_address, city, state, latitude, longitude, neighborhood
+	  FROM "Progetto"."business-openhours-tmp" NATURAL JOIN "Progetto"."business-neighborhoods-tmp";
 
-COPY "Progetto"."business-openhours"
-FROM (SELECT business_id, name, open, day, opens, closes
-	  FROM "business-openhours-tmp");
+INSERT INTO "Progetto"."business-openhours"
+SELECT business_id, name, open, day, opens, closes
+	  FROM "Progetto"."business-openhours-tmp";
 
-COPY "Progetto"."business-categories"
-FROM (SELECT business_id, stars, review_count, category
-	  FROM "business-categories-tmp");
+INSERT INTO "Progetto"."business-categories"
+SELECT business_id, stars, review_count, category
+	  FROM "Progetto"."business-categories-tmp";
 
-COPY "Progetto"."user-friends"
-FROM (SELECT user_id, friend_id
-	  FROM "user-friends");
+INSERT INTO "Progetto"."user-friends"
+SELECT user_id, friend_id
+	  FROM "Progetto"."user-friends";
 
-COPY "Progetto"."user-compliments"
-FROM (SELECT user_id, compliment_type, num_compliment
-	  FROM "user-compliments-tmp");
+INSERT INTO "Progetto"."user-compliments"
+SELECT user_id, compliment_type, num_compliments_of_this_type
+	  FROM "Progetto"."user-compliments-tmp";
 
-COPY "Progetto"."reviews"
-FROM (SELECT "text"
-	  FROM "review-votes-tmp");
+INSERT INTO "Progetto"."reviews"(text)
+SELECT text
+	  FROM "Progetto"."review-votes-tmp"
+	  GROUP BY text;
 
-COPY "Progetto"."user-profiles"
-FROM (SELECT user_id, name, review_count, average_stars, registered_on, fans_count, elite_years_count
-	  FROM "user-profiles-tmp");
+INSERT INTO "Progetto"."user-pofiles"
+SELECT user_id, name, review_count, average_stars, registered_on, fans_count, elite_years_count
+	  FROM "Progetto"."user-profiles-tmp";
 
-COPY "Progetto"."user-votes"
-FROM (SELECT user_id, vote_type, count
-	  FROM "user-votes-tmp");
+INSERT INTO "Progetto"."user-votes"
+SELECT user_id, vote_type, count
+	  FROM "Progetto"."user-votes-tmp";
 
-COPY "Progetto"."review-votes"
-FROM (SELECT business_id, user_id, stars, id, date, vote_type, count
-	  FROM "review-votes-tmp" NATURAL JOIN "reviews" as a);
+INSERT INTO "Progetto"."review-votes"
+SELECT business_id, user_id, stars, id, date, vote_type, count
+	  FROM "Progetto"."review-votes-tmp" NATURAL JOIN "Progetto"."reviews" as a;
 
-DROP TABLE "business-categories-tmp";
-DROP TABLE "business-neighborhoods-tmp";
-DROP TABLE "business-openhours-tmp";
-DROP TABLE "review-votes-tmp";
-DROP TABLE "user-profiles-tmp";
-DROP TABLE "user-friends-tmp";
-DROP TABLE "user-compliments-tmp";
-DROP TABLE "user-votes-tmp";
+DROP TABLE "Progetto"."business-categories-tmp";
+DROP TABLE "Progetto"."business-neighborhoods-tmp";
+DROP TABLE "Progetto"."business-openhours-tmp";
+DROP TABLE "Progetto"."review-votes-tmp";
+DROP TABLE "Progetto"."user-profiles-tmp";
+DROP TABLE "Progetto"."user-friends-tmp";
+DROP TABLE "Progetto"."user-compliments-tmp";
+DROP TABLE "Progetto"."user-votes-tmp";
