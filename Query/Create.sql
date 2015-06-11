@@ -56,6 +56,11 @@ CREATE TABLE "Progetto"."reviews"
 CREATE TABLE "Progetto"."business-openhours"
 (
 	business_id character(22),
+	name varchar(100),
+	full_address varchar(400),
+	city varchar(20),
+	state varchar(3),
+	open varchar(5),
 	day varchar(9),
 	opens character(5),
 	closes character(5),
@@ -79,6 +84,9 @@ CREATE TABLE "Progetto"."business-categories"
 CREATE TABLE "Progetto"."business-neighborhoods"
 (
 	business_id character(22),
+	name varchar(100),
+	city varchar(20),
+	state varchar(3),
 	latitude double precision,
 	longitude double precision,
 	neighborhood varchar(30),

@@ -129,11 +129,11 @@ WITH DELIMITER ','
 CSV HEADER;
 
 INSERT INTO "Progetto"."business-neighborhoods"
-SELECT business_id, latitude, longitude, neighborhood
+SELECT business_id, name, city, state, latitude, longitude, neighborhood
 	  FROM "Progetto"."business-neighborhoods-tmp";
 
 INSERT INTO "Progetto"."business-openhours"
-SELECT business_id, day, opens, closes
+SELECT business_id, name, full_address, city, state, open, day, opens, closes
 	  FROM "Progetto"."business-openhours-tmp";
 
 INSERT INTO "Progetto"."business-categories"

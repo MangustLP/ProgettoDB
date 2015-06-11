@@ -30,7 +30,7 @@ CREATE TABLE "Progetto"."business-neighborhoods-tmp"
 
 INSERT INTO "Progetto"."business-neighborhoods-tmp" (business_id, name, city, state, latitude, longitude, neighborhood)
 SELECT DISTINCT business_id, name, city, state, latitude, longitude, neighborhood
-	   FROM "Progetto"."business-neighborhoods" NATURAL JOIN "Progetto"."business-categories";
+	   FROM "Progetto"."business-neighborhoods";
 
 CREATE TABLE "Progetto"."business-openhours-tmp"
 (
@@ -48,7 +48,7 @@ CREATE TABLE "Progetto"."business-openhours-tmp"
 
 INSERT INTO "Progetto"."business-openhours-tmp" (business_id, name, full_address, city, state, open, day, opens, closes)
 SELECT DISTINCT business_id, name, full_address, city, state, open, day, opens, closes
-	   FROM "Progetto"."business-openhours" NATURAL JOIN "Progetto"."business-categories";
+	   FROM "Progetto"."business-openhours";
 
 CREATE TABLE "Progetto"."review-votes-tmp"
 (
