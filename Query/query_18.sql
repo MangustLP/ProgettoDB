@@ -1,4 +1,5 @@
-﻿CREATE TEMP TABLE idCITY as
+﻿CREATE TEMP TABLE idCITY
+ON COMMIT DROP as
 SELECT cat.business_id, cat.city FROM "Progetto"."business-categories" as cat
 UNION 
 SELECT ope.business_id, ope.city FROM "Progetto"."business-openhours" as ope 
@@ -6,7 +7,8 @@ UNION
 SELECT nei.business_id, nei.city FROM "Progetto"."business-neighborhoods" as nei
 GROUP BY business_id, city;
 
-CREATE TEMP TABLE tmp as
+CREATE TEMP TABLE tmp
+ON COMMIT DROP as
 SELECT DISTINCT a.user_id as id, b.city as city
 FROM "Progetto"."review-votes" as a, idCITY as b
 WHERE a.business_id = b.business_id

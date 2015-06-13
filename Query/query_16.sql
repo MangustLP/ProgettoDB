@@ -1,10 +1,12 @@
-﻿CREATE TEMP TABLE bidRev as
+﻿CREATE TEMP TABLE bidRev
+ON COMMIT DROP as
 SELECT b.business_id as business_id, b.review_count as count
 FROM "Progetto"."business-categories" as b
 GROUP BY b.business_id, b.review_count
 ORDER BY -b.review_count, b.business_id;
 
-CREATE TEMP TABLE userBusTop as
+CREATE TEMP TABLE userBusTop
+ON COMMIT DROP as
 SELECT x.user_id, x.business_id
 FROM ((SELECT k.user_id, k.business_id 
        FROM "Progetto"."review-votes" as k) as o
@@ -21,6 +23,3 @@ FROM (SELECT ubt.user_id, count(ubt.business_id) as co
       ORDER BY -count(ubt.business_id)) as e
 WHERE e.co >= (SELECT (count(ub.business_id)/4)*3
 	       FROM (SELECT u.business_id FROM userBusTop as u GROUP BY u.business_id) as ub);
-
-DROP TABLE bidRev;
-DROP TABLE userBusTop;
